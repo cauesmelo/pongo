@@ -41,7 +41,7 @@ func (p *Paddle) moveUp() {
 	}
 }
 
-func (p *Paddle) Update(keys []ebiten.Key) {
+func (p *Paddle) Update(keys []ebiten.Key, state GameState) {
 	for _, key := range keys {
 		switch key {
 		case ebiten.KeyArrowDown:

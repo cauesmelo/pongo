@@ -11,13 +11,18 @@ import (
 type Game struct {
 	entities []entity.Entity
 	keys     []ebiten.Key
+	state    entity.GameState
 }
 
 func (g *Game) Update() error {
 	g.keys = inpututil.AppendPressedKeys(g.keys[:0])
 
+	if !g.state.Started && ebiten.IsKeyPressed(ebiten.KeySpace) {
+		g.state.Started = true
+	}
+
 	for _, e := range g.entities {
-		e.Update(g.keys)
+		e.Update(g.keys, g.state)
 	}
 
 	return nil
@@ -40,11 +45,17 @@ func startup() *Game {
 	entities := []entity.Entity{
 		entity.CreateBall(),
 		entity.CreatePaddle(),
+		entity.CreateText("Press SPACE to start"),
+	}
+
+	initialState := entity.GameState{
+		Started: false,
 	}
 
 	return &Game{
-		entities,
-		[]ebiten.Key{},
+		entities: entities,
+		keys:     []ebiten.Key{},
+		state:    initialState,
 	}
 }
 

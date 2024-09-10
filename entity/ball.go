@@ -33,7 +33,7 @@ func CreateBall() *ball {
 	return b
 }
 
-func (b *ball) Update(keys []ebiten.Key) {
+func (b *ball) Update(keys []ebiten.Key, state GameState) {
 	// pass
 }
 
