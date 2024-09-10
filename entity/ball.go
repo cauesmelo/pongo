@@ -8,8 +8,8 @@ import (
 )
 
 type ball struct {
-	X      float64
-	Y      float64
+	X      int
+	Y      int
 	size   int
 	sprite *ebiten.Image
 }
@@ -24,8 +24,8 @@ func CreateBall() *ball {
 	size := img.Bounds().Size()
 
 	b := &ball{
-		X:      float64((w / 2) - 20),
-		Y:      float64((h / 2) - 20),
+		X:      w/2 - 20,
+		Y:      h/2 - 20,
 		sprite: img,
 		size:   size.X,
 	}
@@ -33,13 +33,13 @@ func CreateBall() *ball {
 	return b
 }
 
-func (b *ball) Update() {
+func (b *ball) Update(keys []ebiten.Key) {
 	// pass
 }
 
 func (b *ball) Draw(screen *ebiten.Image) {
 	geom := ebiten.GeoM{}
-	geom.Translate(b.X, b.Y)
+	geom.Translate(float64(b.X), float64(b.Y))
 
 	screen.DrawImage(b.sprite, &ebiten.DrawImageOptions{
 		GeoM: geom,
