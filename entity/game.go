@@ -5,6 +5,10 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
+type GameState struct {
+	Started bool
+}
+
 type Game struct {
 	entities []Entity
 	keys     []ebiten.Key
