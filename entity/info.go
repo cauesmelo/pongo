@@ -34,8 +34,8 @@ func CreateText(txt string) *info {
 	}
 }
 
-func (i *info) Update(keys []ebiten.Key, state GameState) {
-	if state.Started && i.text != "" {
+func (i *info) Update(game *Game) {
+	if game.state.Started && i.text != "" {
 		i.text = ""
 	}
 }
