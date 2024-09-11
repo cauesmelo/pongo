@@ -73,10 +73,12 @@ func (b *ball) checkPaddleCollision(entities []Entity) {
 	for _, e := range entities {
 		paddle, isPaddle := e.(*Paddle)
 
-		if isPaddle {
-			if b.X <= paddle.X+paddle.width && b.Y >= paddle.Y && b.Y <= paddle.Y+paddle.height {
-				b.velocityX *= -1
-			}
+		if !isPaddle {
+			continue
+		}
+
+		if b.X < paddle.X+paddle.width && b.X+b.size > paddle.X && b.Y < paddle.Y+paddle.height && b.Y+b.size > paddle.Y {
+			b.velocityX *= -1
 		}
 	}
 }

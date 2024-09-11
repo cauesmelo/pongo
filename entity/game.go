@@ -30,12 +30,7 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) GameOver() {
-	g.state.Started = false
-	g.entities = []Entity{
-		CreateBall(),
-		CreatePaddle(),
-		CreateText("Press SPACE to start"),
-	}
+	g.NewGame()
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
@@ -55,7 +50,8 @@ func (g *Game) NewGame() {
 
 	entities := []Entity{
 		CreateBall(),
-		CreatePaddle(),
+		CreatePaddle(PaddlePositionLeft),
+		CreatePaddle(PaddlePositionRight),
 		CreateText("Press SPACE to start"),
 	}
 
