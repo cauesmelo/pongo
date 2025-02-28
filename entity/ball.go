@@ -1,12 +1,17 @@
 package entity
 
 import (
+	"bytes"
+	_ "embed"
 	"log"
 	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
+
+//go:embed pongo.png
+var pongoPng []byte
 
 type ball struct {
 	X         int
@@ -20,12 +25,13 @@ type ball struct {
 const ballSpeed = 3
 
 func CreateBall() *ball {
-	img, _, err := ebitenutil.NewImageFromFile("./asset/pongo.png")
+	r := bytes.NewReader(pongoPng)
+
+	img, _, err := ebitenutil.NewImageFromReader(r)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	w, h := ebiten.WindowSize()
 	size := img.Bounds().Size()
 
 	b := &ball{
@@ -58,7 +64,6 @@ func (b *ball) launch() {
 }
 
 func (b *ball) checkBoundaries(newGame func()) {
-	w, h := ebiten.WindowSize()
 
 	if b.Y <= 0 || b.Y >= h-b.size {
 		b.velocityY *= -1

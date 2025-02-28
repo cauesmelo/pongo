@@ -4,11 +4,13 @@ import (
 	"bytes"
 	_ "embed"
 	"log"
-	"os"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
+
+//go:embed FiraSans-Regular.ttf
+var firaSans []byte
 
 type info struct {
 	text string
@@ -16,12 +18,7 @@ type info struct {
 }
 
 func CreateText(txt string) *info {
-	f, err := os.ReadFile("./asset/FiraSans-Regular.ttf")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	r := bytes.NewReader(f)
+	r := bytes.NewReader(firaSans)
 
 	s, err := text.NewGoTextFaceSource(r)
 	if err != nil {
@@ -48,7 +45,6 @@ func (i *info) Draw(screen *ebiten.Image) {
 		}
 
 		op := &text.DrawOptions{}
-		w, h := ebiten.WindowSize()
 		op.GeoM.Translate(float64(w/2), float64(h/2+100))
 		op.PrimaryAlign = text.AlignCenter
 

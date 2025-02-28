@@ -24,8 +24,6 @@ type Paddle struct {
 }
 
 func CreatePaddle(position PaddlePosition) *Paddle {
-	w, h := ebiten.WindowSize()
-
 	paddleWidth := 20
 	paddleHeight := 100
 	paddleY := h/2 - paddleHeight/2
@@ -46,8 +44,6 @@ func CreatePaddle(position PaddlePosition) *Paddle {
 }
 
 func (p *Paddle) moveDown() {
-	_, h := ebiten.WindowSize()
-
 	if p.Y+p.height < h {
 		p.Y += moveSpeed
 	}

@@ -8,9 +8,6 @@ import (
 )
 
 func startup() *entity.Game {
-	ebiten.SetWindowSize(640, 480)
-	ebiten.SetWindowTitle("Pongo")
-
 	game := &entity.Game{}
 	game.NewGame()
 
